@@ -31,6 +31,7 @@ const CONFIG = {
   // ============================
   admin: {
     email: 'situmawonderful@outlook.com',
+    email: 'situmawonderful@gmail.com',
     name:  'Wanda',
   },
 
@@ -39,12 +40,19 @@ const CONFIG = {
   // (get from Firebase console)
   // ============================
   firebase: {
-    apiKey:            'AIzaSyBbbXQVgW5WQsbtnN2SmwtOqP4cd13VfRI',
-    authDomain:        'blessin-deaa8.firebaseapp.com',
-    projectId:         'blessin-deaa8',
-    storageBucket:     'blessin-deaa8.firebasestorage.app',
-    messagingSenderId: '349721881752',
-    appId:             '1:349721881752:web:0f880c563e2d54088d5ded',
+     apiKey: "AIzaSyCsS9-C_pVvR-f47mre_trg-lfujmJvGSE",
+
+  authDomain: "lavenderglow-f4444.firebaseapp.com",
+
+  projectId: "lavenderglow-f4444",
+
+  storageBucket: "lavenderglow-f4444.firebasestorage.app",
+
+  messagingSenderId: "179574135738",
+
+  appId: "1:179574135738:web:23b28692a72137d309db83",
+
+  measurementId: "G-2QCLGR4K3S" 
   },
 
   // ============================
