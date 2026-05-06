@@ -88,25 +88,25 @@ const CONFIG = {
     {
       name:  'Wig Installation',
       desc:  'Professional wig fitting and styling',
-      price: "1500-4000",
+      price: "1500-2500",
       image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1777664970/wig_installation_gkokcs.jpg',
     },
     {
       name:  'Hair Dressing',
       desc:  'Styling, braiding, and coloring to keep you looking your best',
-      price: "1000-5000",
+      price: "1000-3500",
       image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1777664969/hair_dressing_xb68xg.jpg',
     },
     {
       name:  'Barber Shop',
-      desc:  'Fresh cuts, Cornrows, Locs installation and braids',
-      price: "200-3000",
+      desc:  'Fresh cuts, Cornrows installation, Locs installation and braids',
+      price: "200-3500"
       image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1777664969/cornrows_hwnvtr.jpg',
     },
     {
       name:  'Full-body Massage',
       desc:  'Relaxing full-body massage to relieve stress and tension',
-      price: "1500-5000",
+      price: "2000-4500"
       image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1778066202/massage_yut61e.jpg',  
     }
   ],
