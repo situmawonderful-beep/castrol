@@ -30,7 +30,7 @@ const CONFIG = {
   // ADMIN ACCOUNT
   // ============================
   admin: {
-    email: 'situmawonderful@gmail.com',
+    email: 'situmawonderful@outlook.com',
     name:  'Wanda',
   },
 
@@ -76,7 +76,7 @@ const CONFIG = {
     {
       name:  'Manicure',
       desc:  'Classic, Gel & acrylic nail treatments',
-      price: 1500,
+      price: "500-1500",
       image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1777664969/manicure_b_hrhetr.jpg',
     },
     {
