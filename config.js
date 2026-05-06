@@ -30,7 +30,6 @@ const CONFIG = {
   // ADMIN ACCOUNT
   // ============================
   admin: {
-    email: 'situmawonderful@outlook.com',
     email: 'situmawonderful@gmail.com',
     name:  'Wanda',
   },
@@ -40,19 +39,12 @@ const CONFIG = {
   // (get from Firebase console)
   // ============================
   firebase: {
-     apiKey: "AIzaSyCsS9-C_pVvR-f47mre_trg-lfujmJvGSE",
-
-  authDomain: "lavenderglow-f4444.firebaseapp.com",
-
-  projectId: "lavenderglow-f4444",
-
-  storageBucket: "lavenderglow-f4444.firebasestorage.app",
-
-  messagingSenderId: "179574135738",
-
-  appId: "1:179574135738:web:23b28692a72137d309db83",
-
-  measurementId: "G-2QCLGR4K3S" 
+    apiKey:            'AIzaSyBbbXQVgW5WQsbtnN2SmwtOqP4cd13VfRI',
+    authDomain:        'blessin-deaa8.firebaseapp.com',
+    projectId:         'blessin-deaa8',
+    storageBucket:     'blessin-deaa8.firebasestorage.app',
+    messagingSenderId: '349721881752',
+    appId:             '1:349721881752:web:0f880c563e2d54088d5ded',
   },
 
   // ============================
@@ -84,37 +76,37 @@ const CONFIG = {
     {
       name:  'Manicure',
       desc:  'Classic, Gel & acrylic nail treatments',
-      price: "500-1500",
+      price:  "500-1500",
       image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1777664969/manicure_b_hrhetr.jpg',
     },
     {
       name:  'Pedicure',
       desc:  'Relaxing foot care and nail grooming',
-      price: 1500,
+      price: "800-2000",
       image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1777664969/pedicure_tmimzg.jpg',
     },
     {
       name:  'Wig Installation',
       desc:  'Professional wig fitting and styling',
-      price: 2500,
+      price: "1500-4000",
       image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1777664970/wig_installation_gkokcs.jpg',
     },
     {
       name:  'Hair Dressing',
       desc:  'Styling, braiding, and coloring to keep you looking your best',
-      price: 3000,
+      price: "1000-5000",
       image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1777664969/hair_dressing_xb68xg.jpg',
     },
     {
       name:  'Barber Shop',
       desc:  'Fresh cuts, Cornrows, Locs installation and braids',
-      price: 600,
+      price: "200-3000",
       image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1777664969/cornrows_hwnvtr.jpg',
     },
     {
       name:  'Full-body Massage',
       desc:  'Relaxing full-body massage to relieve stress and tension',
-      price: 3500,
+      price: "1500-5000",
       image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1778066202/massage_yut61e.jpg',  
     }
   ],
