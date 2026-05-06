@@ -100,13 +100,13 @@ const CONFIG = {
     {
       name:  'Barber Shop',
       desc:  'Fresh cuts, Cornrows installation, Locs installation and braids',
-      price: "200-3500"
+      price: "200-3500",
       image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1777664969/cornrows_hwnvtr.jpg',
     },
     {
       name:  'Full-body Massage',
       desc:  'Relaxing full-body massage to relieve stress and tension',
-      price: "2000-4500"
+      price: "2000-4500",
       image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1778066202/massage_yut61e.jpg',  
     }
   ],
