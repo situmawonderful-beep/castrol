@@ -420,7 +420,7 @@ async function submitBooking() {
     await addDoc(collection(db, 'bookings'), {
       name, phone,
       service: svcName,
-      date, time, notes, price: price, member: isMember(),
+      date, time, notes, price: svc.price, member: isMember(),
       email:   state.currentUser ? state.currentUser.email : null,
       uid:     state.currentUser ? state.currentUser.uid   : null,
       created: new Date().toISOString(),
@@ -465,25 +465,39 @@ function openAccountModal() {
   openModal('accOverlay');
 }
 
-function renderMyBookings() {
+async function renderMyBookings() {
   const list = $('myBookingsList');
   if (!list || !state.currentUser) return;
-  const myB = state.bookings.filter(b => b.uid === state.currentUser.uid || b.email === state.currentUser.email);
 
-  if (myB.length) {
-    list.className = '';
-    list.innerHTML = myB.map(b => `
-      <div style="padding:0.5rem 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
-        <span>
-          <strong>${b.service}</strong><br>
-          <span style="font-size:0.78rem;color:var(--muted)">${b.date} at ${b.time}</span>
-        </span>
-        <span style="color:var(--lav-dark);font-weight:500">${typeof b.price === 'number' ? 'KSh ' + b.price.toLocaleString() : b.price}</span>
-      </div>`
-    ).join('');
-  } else {
-    list.className = 'my-bookings-empty';
-    list.innerHTML = 'No bookings yet. Book your first appointment!';
+  list.innerHTML = '<p style="color:var(--muted);font-size:0.85rem">Loading...</p>';
+
+  try {
+    const q        = query(collection(db, 'bookings'), orderBy('created', 'desc'));
+    const snapshot = await getDocs(q);
+    const myB      = snapshot.docs
+      .map(d => ({ id: d.id, ...d.data() }))
+      .filter(b => b.uid === state.currentUser.uid || b.email === state.currentUser.email);
+
+    if (myB.length) {
+      list.className = '';
+      list.innerHTML = myB.map(b => `
+        <div style="padding:0.6rem 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
+          <span>
+            <strong>${b.service}</strong><br>
+            <span style="font-size:0.78rem;color:var(--muted)">${b.date} at ${b.time}</span><br>
+            <span style="font-size:0.75rem;color:${b.completed ? 'var(--success)' : 'var(--muted)'}">
+              ${b.completed ? 'Completed' : 'Pending'}
+            </span>
+          </span>
+          <span style="color:var(--lav-dark);font-weight:500">${typeof b.price === 'number' ? 'KSh ' + b.price.toLocaleString() : b.price || '—'}</span>
+        </div>`).join('');
+    } else {
+      list.className = 'my-bookings-empty';
+      list.innerHTML = 'No bookings yet. Book your first appointment!';
+    }
+  } catch (err) {
+    list.innerHTML = '<p style="color:var(--muted);font-size:0.85rem">Could not load bookings.</p>';
+    console.error('renderMyBookings error:', err);
   }
 }
 
@@ -493,10 +507,10 @@ function renderMyBookings() {
 function renderAdmin() {
   const today     = new Date().toISOString().split('T')[0];
   const todayBks  = state.bookings.filter(b => b.date === today);
-  const revenue   = state.bookings.reduce((a, b) => a + (typeof b.price === 'number' ? b.price : 0), 0);
+  const revenue   = state.bookings.reduce((a, b) => a + b.price, 0);
   const memberBks = state.bookings.filter(b => b.member);
   const guestBks  = state.bookings.filter(b => !b.member);
-  const memberRev = memberBks.reduce((a, b) => a + (typeof b.price === 'number' ? b.price : 0), 0);
+  const memberRev = memberBks.reduce((a, b) => a + b.price, 0);
 
   const dateEl = $('adminDate');
   if (dateEl) dateEl.textContent = new Date().toLocaleDateString('en-KE', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
@@ -564,7 +578,7 @@ function renderBookingsTable() {
           <td><span class="svc-badge">${b.service}</span></td>
           <td>${formatDate(b.date)}</td>
           <td>${b.time}</td>
-          <td style="font-weight:600;color:var(--lav-dark)">${typeof b.price === 'number' ? 'KSh ' + b.price.toLocaleString() : b.price}</td>
+          <td style="font-weight:600;color:var(--lav-dark)">KSh ${b.price.toLocaleString()}</td>
           <td><span class="badge ${b.member ? 'badge-member' : 'badge-guest'}">${b.member ? 'Member' : 'Guest'}</span></td>
           <td style="color:var(--muted);font-size:0.82rem;max-width:120px">${b.notes || '<em>—</em>'}</td>
           <td>
@@ -591,7 +605,7 @@ function renderMembersTable() {
             <td>${u.email}</td>
             <td>${u.joined}</td>
             <td><span class="badge badge-member">${userBookings} booking${userBookings !== 1 ? 's' : ''}</span></td>
-            <td style="color:var(--success);font-weight:600">5% off</td>
+            <td style="color:var(--success);font-weight:600">Member</td>
           </tr>`;
       }).join('')
     : '<tr><td colspan="6" class="empty-row">No members registered yet</td></tr>';
