@@ -420,7 +420,7 @@ async function submitBooking() {
     await addDoc(collection(db, 'bookings'), {
       name, phone,
       service: svcName,
-      date, time, notes, price: svc.price, member: isMember(),
+      date, time, notes, price: price, member: isMember(),
       email:   state.currentUser ? state.currentUser.email : null,
       uid:     state.currentUser ? state.currentUser.uid   : null,
       created: new Date().toISOString(),
@@ -478,7 +478,7 @@ function renderMyBookings() {
           <strong>${b.service}</strong><br>
           <span style="font-size:0.78rem;color:var(--muted)">${b.date} at ${b.time}</span>
         </span>
-        <span style="color:var(--lav-dark);font-weight:500">KSh ${b.price.toLocaleString()}</span>
+        <span style="color:var(--lav-dark);font-weight:500">${typeof b.price === 'number' ? 'KSh ' + b.price.toLocaleString() : b.price}</span>
       </div>`
     ).join('');
   } else {
@@ -493,10 +493,10 @@ function renderMyBookings() {
 function renderAdmin() {
   const today     = new Date().toISOString().split('T')[0];
   const todayBks  = state.bookings.filter(b => b.date === today);
-  const revenue   = state.bookings.reduce((a, b) => a + b.price, 0);
+  const revenue   = state.bookings.reduce((a, b) => a + (typeof b.price === 'number' ? b.price : 0), 0);
   const memberBks = state.bookings.filter(b => b.member);
   const guestBks  = state.bookings.filter(b => !b.member);
-  const memberRev = memberBks.reduce((a, b) => a + b.price, 0);
+  const memberRev = memberBks.reduce((a, b) => a + (typeof b.price === 'number' ? b.price : 0), 0);
 
   const dateEl = $('adminDate');
   if (dateEl) dateEl.textContent = new Date().toLocaleDateString('en-KE', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
@@ -564,7 +564,7 @@ function renderBookingsTable() {
           <td><span class="svc-badge">${b.service}</span></td>
           <td>${formatDate(b.date)}</td>
           <td>${b.time}</td>
-          <td style="font-weight:600;color:var(--lav-dark)">KSh ${b.price.toLocaleString()}</td>
+          <td style="font-weight:600;color:var(--lav-dark)">${typeof b.price === 'number' ? 'KSh ' + b.price.toLocaleString() : b.price}</td>
           <td><span class="badge ${b.member ? 'badge-member' : 'badge-guest'}">${b.member ? 'Member' : 'Guest'}</span></td>
           <td style="color:var(--muted);font-size:0.82rem;max-width:120px">${b.notes || '<em>—</em>'}</td>
           <td>
