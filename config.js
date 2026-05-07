@@ -38,13 +38,20 @@ const CONFIG = {
   // FIREBASE CONFIG
   // (get from Firebase console)
   // ============================
-  firebase: {
-    apiKey:            'AIzaSyBbbXQVgW5WQsbtnN2SmwtOqP4cd13VfRI',
-    authDomain:        'blessin-deaa8.firebaseapp.com',
-    projectId:         'blessin-deaa8',
-    storageBucket:     'blessin-deaa8.firebasestorage.app',
-    messagingSenderId: '349721881752',
-    appId:             '1:349721881752:web:0f880c563e2d54088d5ded',
+  firebase: { apiKey: "AIzaSyCsS9-C_pVvR-f47mre_trg-lfujmJvGSE",
+
+  authDomain: "lavenderglow-f4444.firebaseapp.com",
+
+  projectId: "lavenderglow-f4444",
+
+  storageBucket: "lavenderglow-f4444.firebasestorage.app",
+
+  messagingSenderId: "179574135738",
+
+  appId: "1:179574135738:web:23b28692a72137d309db83",
+
+  measurementId: "G-2QCLGR4K3S"
+
   },
 
   // ============================
@@ -76,39 +83,70 @@ const CONFIG = {
     {
       name:  'Manicure',
       desc:  'Classic, Gel & acrylic nail treatments',
-      price:  "500-1500",
+      price: '500 - 1,500',
       image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1777664969/manicure_b_hrhetr.jpg',
+      subServices: [
+        { name: 'Classic Manicure',  price: 500  },
+        { name: 'Gel Manicure',      price: 900  },
+        { name: 'Acrylic Nails',     price: 1500 },
+      ],
     },
     {
       name:  'Pedicure',
       desc:  'Relaxing foot care and nail grooming',
-      price: "800-2000",
+      price: '800 - 2,000',
       image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1777664969/pedicure_tmimzg.jpg',
+      subServices: [
+        { name: 'Basic Pedicure',    price: 800  },
+        { name: 'Spa Pedicure',      price: 1200 },
+        { name: 'Gel Pedicure',      price: 2000 },
+      ],
     },
     {
       name:  'Wig Installation',
       desc:  'Professional wig fitting and styling',
-      price: "1500-2500",
+      price: '1,500 - 4,000',
       image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1777664970/wig_installation_gkokcs.jpg',
+      subServices: [
+        { name: 'Wig Fitting',       price: 1500 },
+        { name: 'Wig Styling',       price: 2000 },
+        { name: 'Full Lace Install', price: 4000 },
+      ],
     },
     {
       name:  'Hair Dressing',
       desc:  'Styling, braiding, and coloring to keep you looking your best',
-      price: "1000-3500",
+      price: '1,000 - 5,000',
       image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1777664969/hair_dressing_xb68xg.jpg',
+      subServices: [
+        { name: 'Hair Styling',      price: 1000 },
+        { name: 'Braiding',          price: 2500 },
+        { name: 'Hair Coloring',     price: 3500 },
+        { name: 'Full Treatment',    price: 5000 },
+      ],
     },
     {
       name:  'Barber Shop',
-      desc:  'Fresh cuts, Cornrows installation, Locs installation and braids',
-      price: "200-3500",
+      desc:  'Fresh cuts, Cornrows, Locs installation and braids',
+      price: '200 - 3,000',
       image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1777664969/cornrows_hwnvtr.jpg',
+      subServices: [
+        { name: 'Fresh Cut',         price: 200  },
+        { name: 'Cornrows',          price: 800  },
+        { name: 'Locs Installation', price: 3000 },
+      ],
     },
     {
       name:  'Full-body Massage',
       desc:  'Relaxing full-body massage to relieve stress and tension',
-      price: "2000-4500",
-      image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1778066202/massage_yut61e.jpg',  
-    }
+      price: '1,500 - 5,000',
+      image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1778066202/massage_yut61e.jpg',
+      subServices: [
+        { name: 'Back Massage',      price: 1500 },
+        { name: 'Full Body Massage', price: 3000 },
+        { name: 'Couples Massage',   price: 5000 },
+      ],
+    },
   ],
 
 };
