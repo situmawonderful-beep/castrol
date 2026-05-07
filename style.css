@@ -57,7 +57,7 @@ nav {
 .logo { display: flex; align-items: center; gap: 0.8rem; text-decoration: none; }
 .logo-icon {
   
-  background: linear-gradient(135deg, var(--gold), #e8c56a);
+  background: linear-gradient(135deg, );
   border-radius: 50%;
   display: block;
   font-size: 20px; flex-shrink: 0;
