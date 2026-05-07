@@ -19,10 +19,11 @@ const db   = getFirestore(app);
 // ============================
 const ADMIN_EMAIL = CONFIG.admin.email;
 const SERVICES    = CONFIG.services.map(s => ({
-  name: s.name,
-  desc: s.desc,
-  price: s.price,
-  icon: s.image,
+  name:        s.name,
+  desc:        s.desc,
+  price:       s.price,
+  icon:        s.image,
+  subServices: s.subServices || [],
 }));
 
 // ============================
@@ -289,6 +290,15 @@ function renderServices() {
 
   grid.innerHTML = SERVICES.map((s, i) => {
     const selected = state.selSvc === i;
+    const subHtml  = s.subServices.length
+      ? `<div class="sub-services">
+           ${s.subServices.map(sub => `
+             <div class="sub-service-item" onclick="event.stopPropagation(); selectSubService(${i}, '${sub.name}', ${sub.price})">
+               <span class="sub-name">${sub.name}</span>
+               <span class="sub-price">KSh ${sub.price.toLocaleString()}</span>
+             </div>`).join('')}
+         </div>`
+      : '';
 
     return `
       <div class="service-card${selected ? ' selected' : ''}" onclick="selectService(${i})">
@@ -299,30 +309,59 @@ function renderServices() {
         <div class="svc-body">
           <div class="svc-name">${s.name}</div>
           <div class="svc-desc-text">${s.desc}</div>
-          <div class="svc-price">KSh ${s.price.toLocaleString()}</div>
+          <div class="svc-price">KSh ${s.price}</div>
+          ${subHtml}
           <button class="svc-book-btn" onclick="event.stopPropagation(); selectService(${i})">Book Now</button>
         </div>
       </div>`;
   }).join('');
 
+  updateBookingDropdown();
+}
+
+function updateBookingDropdown() {
   const sel = $('bkService');
   if (!sel) return;
   const cur = sel.value;
   sel.innerHTML = '<option value="">-- Select a service --</option>';
   SERVICES.forEach(s => {
-    const o = document.createElement('option');
-    o.value = s.name;
-    o.textContent = `${s.name}  —  KSh ${s.price.toLocaleString()}`;
-    sel.appendChild(o);
+    if (s.subServices.length) {
+      // Add sub-services as options under parent
+      const group = document.createElement('optgroup');
+      group.label = s.name;
+      s.subServices.forEach(sub => {
+        const o = document.createElement('option');
+        o.value = `${s.name} — ${sub.name}`;
+        o.textContent = `${sub.name}  —  KSh ${sub.price.toLocaleString()}`;
+        o.dataset.price = sub.price;
+        o.dataset.parent = s.name;
+        group.appendChild(o);
+      });
+      sel.appendChild(group);
+    } else {
+      const o = document.createElement('option');
+      o.value = s.name;
+      o.textContent = `${s.name}  —  KSh ${s.price}`;
+      sel.appendChild(o);
+    }
   });
   if (cur) sel.value = cur;
-  if (state.selSvc !== null) sel.value = SERVICES[state.selSvc].name;
 }
 
 function selectService(i) {
   state.selSvc = i;
+  renderServices();
+  const book = document.getElementById('book');
+  if (book) book.scrollIntoView({ behavior: 'smooth' });
+}
+
+function selectSubService(svcIndex, subName, subPrice) {
+  state.selSvc = svcIndex;
   const sel = $('bkService');
-  if (sel) sel.value = SERVICES[i].name;
+  if (sel) {
+    const val = `${SERVICES[svcIndex].name} — ${subName}`;
+    sel.value = val;
+  }
   renderServices();
   updatePriceSummary();
   const book = document.getElementById('book');
@@ -333,27 +372,27 @@ function selectService(i) {
 // PRICE SUMMARY
 // ============================
 function updatePriceSummary() {
-  const svcSel = $('bkService');
+  const svcSel  = $('bkService');
   if (!svcSel) return;
-  const svcName = svcSel.value;
-  const svc     = SERVICES.find(s => s.name === svcName);
-  const ps      = $('priceSummary');
+  const ps = $('priceSummary');
   if (!ps) return;
 
-  if (!svc) { ps.style.display = 'none'; return; }
+  const selectedOpt = svcSel.options[svcSel.selectedIndex];
+  if (!svcSel.value || !selectedOpt) { ps.style.display = 'none'; return; }
 
-  const disc  = 0;
-  const total = svc.price;
+  const svcName = svcSel.value;
+  const price   = selectedOpt.dataset.price
+    ? parseInt(selectedOpt.dataset.price)
+    : null;
+
+  if (!price) { ps.style.display = 'none'; return; }
 
   ps.style.display = 'block';
-  $('psSvc').textContent     = svc.name;
-  $('psRegular').textContent = 'KSh ' + svc.price.toLocaleString();
-  $('psDisc').textContent    = '- KSh ' + disc.toLocaleString();
-  $('psTotal').textContent   = 'KSh ' + total.toLocaleString();
-  $('psDiscRow').style.display = isMember() ? 'flex' : 'none';
-
-  const idx = SERVICES.findIndex(s => s.name === svcName);
-  if (idx !== state.selSvc) { state.selSvc = idx; renderServices(); }
+  $('psSvc').textContent     = svcName;
+  $('psRegular').textContent = 'KSh ' + price.toLocaleString();
+  $('psDisc').textContent    = '—';
+  $('psTotal').textContent   = 'KSh ' + price.toLocaleString();
+  $('psDiscRow').style.display = 'none';
 }
 
 // ============================
@@ -373,9 +412,9 @@ async function submitBooking() {
   if (!date)    { toast('Please choose a date', 'error'); return; }
   if (!time)    { toast('Please choose a time', 'error'); return; }
 
-  const svc    = SERVICES.find(s => s.name === svcName);
-  const member = isMember();
-  const price  = member ? Math.round(svc.price * 0.95) : svc.price;
+  const svc         = SERVICES.find(s => s.name === svcName || svcName.startsWith(s.name));
+  const selectedOpt = $('bkService').options[$('bkService').selectedIndex];
+  const price       = selectedOpt?.dataset.price ? parseInt(selectedOpt.dataset.price) : 0;
 
   try {
     await addDoc(collection(db, 'bookings'), {
@@ -684,6 +723,7 @@ function applyConfig() {
 // ============================
 window.togglePw        = togglePw;
 window.selectService   = selectService;
+window.selectSubService = selectSubService;
 window.toggleComplete  = toggleComplete;
 window.forgotPassword  = forgotPassword;
 window.markAllComplete = markAllComplete;
