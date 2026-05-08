@@ -22,7 +22,7 @@ const CONFIG = {
   instagram: 'https://www.instagram.com/w.a.n.d.a_c?igsh=MW45bGQ2cGRveWllcw==',
   tiktok:    'https://www.tiktok.com/@castro._w?_r=1&_t=ZS-96BXVfyoa96',
   facebook:  'https://www.facebook.com/lavenderglowbeauty',
-  whatsapp:  '254115506649',
+  whatsapp:  '+254 115 506 649',
 },
 
   // ============================
