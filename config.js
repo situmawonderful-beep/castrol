@@ -13,9 +13,9 @@ const CONFIG = {
     name:     'Lavender Glow Beauty Space',
     tagline:  'Where elegance meets care. Your transformation begins here in the heart of Lurambi, Kakamega.',
     location: 'Bamboo, Lurambi, Kakamega County, Kenya',
-    phone:    '254115506649',
-    whatsapp: '254115506649',
-    email:    '',
+    phone:    '+254 115 506 649',
+    whatsapp: '+254 115 506 649',
+    email:    'situmawonderful@gmail.com',
   },
   // SOCIALS
   social: {
