@@ -124,7 +124,7 @@ const CONFIG = {
       name:  'Hair Dressing',
       desc:  'Styling, braiding, and coloring to keep you looking your best',
       price: '1,000 - 5,000',
-      image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1777664969/hair_dressing_xb68xg.jpg',
+      image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1778333156/hair_dressing_w6gjxv.avif',
       subServices: [
         { name: 'Hair Styling',      price: 1000 },
         { name: 'Braiding',          price: 2500 },
