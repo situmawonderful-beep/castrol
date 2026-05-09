@@ -8,7 +8,7 @@
 // ============================
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { getFirestore, collection, addDoc, getDocs, query, orderBy, onSnapshot, doc, setDoc, getDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, query, orderBy, where, onSnapshot, doc, setDoc, getDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const app  = initializeApp(CONFIG.firebase);
 const auth = getAuth(app);
@@ -471,11 +471,14 @@ async function renderMyBookings() {
   list.innerHTML = '<p style="color:var(--muted);font-size:0.85rem">Loading...</p>';
 
   try {
-    const q        = query(collection(db, 'bookings'), orderBy('created', 'desc'));
+    // Query only this user's bookings using their uid
+    const q        = query(
+      collection(db, 'bookings'),
+      where('uid', '==', state.currentUser.uid),
+      orderBy('created', 'desc')
+    );
     const snapshot = await getDocs(q);
-    const myB      = snapshot.docs
-      .map(d => ({ id: d.id, ...d.data() }))
-      .filter(b => b.uid === state.currentUser.uid || b.email === state.currentUser.email);
+    const myB      = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
 
     if (myB.length) {
       list.className = '';
