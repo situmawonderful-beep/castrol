@@ -102,7 +102,7 @@ const CONFIG = {
       name:  'Pedicure',
       desc:  'Relaxing foot care and nail grooming',
       price: '800 - 2,000',
-      image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1777664969/pedicure_tmimzg.jpg',
+      image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1778347116/pedicure_z8g54h.jpg',
       subServices: [
         { name: 'Basic Pedicure',    price: 800  },
         { name: 'Spa Pedicure',      price: 1200 },
@@ -148,7 +148,7 @@ const CONFIG = {
       name:  'Full-body Massage',
       desc:  'Relaxing full-body massage to relieve stress and tension',
       price: '1,500 - 5,000',
-      image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1778066202/massage_yut61e.jpg',
+      image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1778347392/massage_srkb2m.jpg',
       subServices: [
         { name: 'Back Massage',      price: 1500 },
         { name: 'Full Body Massage', price: 3000 },
