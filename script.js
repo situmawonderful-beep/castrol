@@ -471,14 +471,13 @@ async function renderMyBookings() {
   list.innerHTML = '<p style="color:var(--muted);font-size:0.85rem">Loading...</p>';
 
   try {
-    // Query only this user's bookings using their uid
     const q        = query(
       collection(db, 'bookings'),
-      where('uid', '==', state.currentUser.uid),
-      orderBy('created', 'desc')
+      where('uid', '==', state.currentUser.uid)
     );
     const snapshot = await getDocs(q);
-    const myB      = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+    const myB      = snapshot.docs.map(d => ({ id: d.id, ...d.data() }))
+      .sort((a, b) => new Date(b.created) - new Date(a.created));
 
     if (myB.length) {
       list.className = '';
@@ -491,7 +490,7 @@ async function renderMyBookings() {
               ${b.completed ? 'Completed' : 'Pending'}
             </span>
           </span>
-          <span style="color:var(--lav-dark);font-weight:500">${typeof b.price === 'number' ? 'KSh ' + b.price.toLocaleString() : b.price || '—'}</span>
+          <span style="color:var(--lav-dark);font-weight:500">${typeof b.price === 'number' ? 'KSh ' + b.price.toLocaleString() : '—'}</span>
         </div>`).join('');
     } else {
       list.className = 'my-bookings-empty';
