@@ -148,11 +148,11 @@ const CONFIG = {
       name:  'Full-body Massage',
       desc:  'Relaxing full-body massage to relieve stress and tension',
       price: '1,500 - 5,000',
-      image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1778347392/massage_srkb2m.jpg',
+      image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1778387369/massage_ybshjc.jpg',
       subServices: [
         { name: 'Back Massage',      price: 1500 },
         { name: 'Full Body Massage', price: 3000 },
-        { name: 'Couples Massage',   price: 5000 },
+        { name: 'Hot Stone Massage',   price: 5000 },
       ],
     },
   ],
