@@ -136,7 +136,7 @@ const CONFIG = {
       name:  'Barber Shop',
       desc:  'Fresh cuts, Cornrows installation, Locs installation and braids',
       price: '200 - 4,500',
-      image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1778332589/barber_shop_dwe0rg.avif',
+      image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1778410820/barber_shop_xs7woy.jpg',
       subServices: [
         { name: 'Fresh Cut',         price: 200  },
         { name: 'Cornrows',          price: 800  },
