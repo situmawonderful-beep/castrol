@@ -17,7 +17,8 @@ const db   = getFirestore(app);
 // ============================
 // CONSTANTS — from config.js
 // ============================
-const ADMIN_EMAIL = CONFIG.admin.email;
+const ADMIN_EMAIL   = CONFIG.admin.email;
+const MANAGER_EMAIL = CONFIG.manager?.email || '';
 const SERVICES    = CONFIG.services.map(s => ({
   name:        s.name,
   desc:        s.desc,
@@ -35,7 +36,8 @@ const state = {
   bookings: [],
   members: [],
   selSvc: null,
-  isAdmin: false,
+  isAdmin:   false,
+  isManager: false,
 };
 
 // ============================
@@ -48,11 +50,15 @@ function $(id) {
 }
 
 function isMember() {
-  return state.currentUser && !state.isAdmin;
+  return state.currentUser && !state.isAdmin && !state.isManager;
 }
 
 function isAdmin() {
   return state.isAdmin;
+}
+
+function isManager() {
+  return state.isManager;
 }
 
 // ============================
@@ -208,7 +214,8 @@ async function loadMembers() {
 // ============================
 onAuthStateChanged(auth, async (user) => {
   state.currentUser = user;
-  state.isAdmin = user ? user.email === ADMIN_EMAIL : false;
+  state.isAdmin   = user ? user.email === ADMIN_EMAIL   : false;
+  state.isManager = user ? user.email === MANAGER_EMAIL : false;
 
   if (user) {
     // Load profile from Firestore
@@ -237,7 +244,7 @@ function refreshUI() {
   updatePriceSummary();
 
   const adminSec = $('adminSection');
-  if (isAdmin()) {
+  if (isAdmin() || isManager()) {
     adminSec.style.display = 'block';
     renderAdmin();
   } else {
@@ -257,6 +264,9 @@ function updateNav() {
 
   if (isAdmin()) {
     btn.textContent = 'Admin';
+    btn.onclick = () => $('adminSection').scrollIntoView({ behavior: 'smooth' });
+  } else if (isManager()) {
+    btn.textContent = 'Manager';
     btn.onclick = () => $('adminSection').scrollIntoView({ behavior: 'smooth' });
   } else if (state.currentUser) {
     const name = state.currentProfile?.name || state.currentUser.displayName || 'Member';
@@ -514,6 +524,18 @@ function renderAdmin() {
   const guestBks  = state.bookings.filter(b => !b.member);
   const memberRev = memberBks.reduce((a, b) => a + getPrice(b), 0);
 
+  // Hide dangerous buttons from manager
+  const exportBtn          = $('exportBtn');
+  const clearBtn           = $('clearDataBtn');
+  const markAllBtn         = $('markAllCompleteBtn');
+  if (exportBtn)    exportBtn.style.display    = isAdmin() ? 'inline-block' : 'none';
+  if (clearBtn)     clearBtn.style.display     = isAdmin() ? 'inline-block' : 'none';
+  if (markAllBtn)   markAllBtn.style.display   = isAdmin() ? 'inline-block' : 'none';
+
+  // Manager sees a notice
+  const managerNotice = $('managerNotice');
+  if (managerNotice) managerNotice.style.display = isManager() ? 'block' : 'none';
+
   const dateEl = $('adminDate');
   if (dateEl) dateEl.textContent = new Date().toLocaleDateString('en-KE', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
@@ -584,11 +606,14 @@ function renderBookingsTable() {
           <td><span class="badge ${b.member ? 'badge-member' : 'badge-guest'}">${b.member ? 'Member' : 'Guest'}</span></td>
           <td style="color:var(--muted);font-size:0.82rem;max-width:120px">${b.notes || '<em>—</em>'}</td>
           <td>
-            <button 
-              class="btn-complete ${b.completed ? 'btn-completed' : ''}" 
+            ${isAdmin() ? `
+            <button
+              class="btn-complete ${b.completed ? 'btn-completed' : ''}"
               onclick="toggleComplete('${b.id}', ${!!b.completed})">
               ${b.completed ? 'Done' : 'Pending'}
-            </button>
+            </button>` : `
+            <span class="badge ${b.completed ? 'badge-member' : 'badge-guest'}">${b.completed ? 'Done' : 'Pending'}</span>
+            `}
           </td>
         </tr>`).join('')
     : '<tr><td colspan="10" class="empty-row">No bookings yet</td></tr>';
