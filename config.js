@@ -26,6 +26,16 @@ const CONFIG = {
 },
 
   // ============================
+  // HOME SERVICE
+  // ============================
+  homeService: {
+    enabled:     true,      // set to false to disable home service option
+    extraCharge: 500,       // KSh extra for home service
+    maxDistance: 5,         // km from shop
+    shopLocation: 'Bamboo, Lurambi, Kakamega',
+  },
+
+  // ============================
   // OPENING HOURS
   // ============================
   hours: {
@@ -39,14 +49,6 @@ const CONFIG = {
   admin: {
     email: 'situmawonderful@gmail.com',
     name:  'Wanda',
-  },
-
-  // ============================
-  // MANAGER ACCOUNT
-  // (view only — no delete/clear)
-  // ============================
-  manager: {
-    email: 'manager@lavenderglow.com', // ← change this to their email
   },
 
   // ============================
@@ -109,12 +111,15 @@ const CONFIG = {
     {
       name:  'Pedicure',
       desc:  'Relaxing foot care and nail grooming',
-      price: '800 - 2,000',
+      price: '800 - 2,500',
       image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1777664969/pedicure_tmimzg.jpg',
       subServices: [
         { name: 'Basic Pedicure',    price: 800  },
+        { name: 'Acrylic Pedicure',  price: 1000 },
         { name: 'Spa Pedicure',      price: 1200 },
         { name: 'Gel Pedicure',      price: 2000 },
+        { name: 'Hot Stone Pedicure', price: 2500 },
+
       ],
     },
     {
@@ -123,46 +128,49 @@ const CONFIG = {
       price: '1,500 - 4,000',
       image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1777664970/wig_installation_gkokcs.jpg',
       subServices: [
-        { name: 'Wig Fitting',       price: 1500 },
-        { name: 'Wig Styling',       price: 2000 },
-        { name: 'Glueless installation', price: 2500}
-        { name: 'Full Lace Install', price: 4000 },
+        { name: 'Quick Weave Install',           price: 1000 },
+        { name: 'Glue installation(Bonded)',       price: 1500 },
+        { name: 'Glue-less installation',       price: 2000 },
+        { name: 'Front Lace Install',         price: 3000 },
+        { name: 'Full Lace Install',        price: 4000 },
       ],
     },
     {
       name:  'Hair Dressing',
       desc:  'Styling, braiding, and coloring to keep you looking your best',
       price: '1,000 - 5,000',
-      image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1777664969/hair_dressing_xb68xg.jpg',
+      image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1778333156/hair_dressing_w6gjxv.avif',
       subServices: [
-        { name: 'Hair Styling',      price: 1000 },
+        { name: 'Natural Hair Styling',      price: 1000 },
+        { name: 'Weaving & Extensions', price: 1500 },
         { name: 'Braiding',          price: 2500 },
-        { name: 'Hair Coloring',     price: 3500 },
+        { name: 'Locs & Dreadlocks',     price: 3500 },
         { name: 'Full Treatment',    price: 5000 },
       ],
     },
     {
       name:  'Barber Shop',
-      desc:  'Fresh cuts, Cornrows, Locs installation and braids',
-      price: '200 - 3,000',
-      image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1778410820/barber_shop_xs7woy.jpg',
+      desc:  'Fresh cuts, Cornrows installation, Locs installation and braids installation',
+      price: '200 - 4,500',
+      image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1778332589/barber_shop_dwe0rg.avif',
       subServices: [
-        { name: 'Fresh Cut',         price: 200  },
-        { name: 'Braids Services',          price: 1,000  },
-        { name: 'Locs & Dread locks Installation', price: 4,500 },
-       
+        { name: 'Haircuts',         price: 200  },
+        { name: 'Cornrows',          price: 800  },
+        { name: 'hair styling',          price: 1500 },
+        { name: 'Locs Installation', price: 3000 },
+        { name: 'Braids Installation', price: 4500},
       ],
     },
     {
-      name:  ' Massage Services',
+      name:  'Full-body Massage',
       desc:  'Relaxing full-body massage to relieve stress and tension',
       price: '1,500 - 5,000',
       image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1778387369/massage_ybshjc.jpg',
       subServices: [
-        { name: 'Back Massage',      price: 1,500 },
-        { name: 'Full Body Massage', price: 3,000 },
-        { name: 'Reflexology Massage', price: 4000},
-        { name: 'Hot stone Massage',   price: 5,000 },
+        { name: 'Back Massage',      price: 1500 },
+        { name: 'Full Body Massage', price: 3000 },
+        { name: 'Hot Stone Massage',   price: 4500 },
+        { name: 'Therapeutic Massages', price: 5000 },
       ],
     },
   ],
