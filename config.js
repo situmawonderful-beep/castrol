@@ -125,6 +125,7 @@ const CONFIG = {
       subServices: [
         { name: 'Wig Fitting',       price: 1500 },
         { name: 'Wig Styling',       price: 2000 },
+        { name: 'Glueless installation', price: 2500}
         { name: 'Full Lace Install', price: 4000 },
       ],
     },
@@ -144,22 +145,24 @@ const CONFIG = {
       name:  'Barber Shop',
       desc:  'Fresh cuts, Cornrows, Locs installation and braids',
       price: '200 - 3,000',
-      image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1777664969/cornrows_hwnvtr.jpg',
+      image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1778410820/barber_shop_xs7woy.jpg',
       subServices: [
         { name: 'Fresh Cut',         price: 200  },
-        { name: 'Cornrows',          price: 800  },
-        { name: 'Locs Installation', price: 3000 },
+        { name: 'Braids Services',          price: 1,000  },
+        { name: 'Locs & Dread locks Installation', price: 4,500 },
+       
       ],
     },
     {
-      name:  'Full-body Massage',
+      name:  ' Massage Services',
       desc:  'Relaxing full-body massage to relieve stress and tension',
       price: '1,500 - 5,000',
-      image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1778066202/massage_yut61e.jpg',
+      image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1778387369/massage_ybshjc.jpg',
       subServices: [
-        { name: 'Back Massage',      price: 1500 },
-        { name: 'Full Body Massage', price: 3000 },
-        { name: 'Couples Massage',   price: 5000 },
+        { name: 'Back Massage',      price: 1,500 },
+        { name: 'Full Body Massage', price: 3,000 },
+        { name: 'Reflexology Massage', price: 4000},
+        { name: 'Hot stone Massage',   price: 5,000 },
       ],
     },
   ],
