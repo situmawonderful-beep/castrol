@@ -98,12 +98,13 @@ const CONFIG = {
     {
       name:  'Manicure',
       desc:  'Classic, Gel & acrylic nail treatments',
-      price: '500 - 1,500',
+      price: '500 - 2,000',
       image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1778331798/Acrylic_nails_y45fxu.webp',
       subServices: [
         { name: 'Classic Manicure',  price: 500  },
         { name: 'Gel Manicure',      price: 900  },
         { name: 'Acrylic Nails',     price: 1500 },
+        { name: 'Nail-Art manicure', price: 2000 },
       ],
     },
     {
