@@ -15,15 +15,14 @@ const CONFIG = {
     location: 'Bamboo, Lurambi, Kakamega County, Kenya',
     phone:    '254115506649',
     whatsapp: '254115506649',
-    email:    'situmawonderful@gmail.com',
+    email:    '',
   },
   // SOCIALS
   social: {
   instagram: 'https://www.instagram.com/w.a.n.d.a_c?igsh=MW45bGQ2cGRveWllcw==',
   tiktok:    'https://www.tiktok.com/@castro._w?_r=1&_t=ZS-96BXVfyoa96',
   facebook:  'https://www.facebook.com/lavenderglowbeauty',
-  whatsapp:  '+254 115 506 649',
-  x:         'https://x.com/castro_539',
+  whatsapp:  '254115506649',
 },
 
   // ============================
@@ -40,6 +39,14 @@ const CONFIG = {
   admin: {
     email: 'situmawonderful@gmail.com',
     name:  'Wanda',
+  },
+
+  // ============================
+  // MANAGER ACCOUNT
+  // (view only — no delete/clear)
+  // ============================
+  manager: {
+    email: 'manager@lavenderglow.com', // ← change this to their email
   },
 
   // ============================
@@ -80,7 +87,7 @@ const CONFIG = {
     primary:    '#4a2c82',   // main purple
     secondary:  '#7c3aed',   // lighter purple
     gold:       '#c9a84c',   // gold accent
-    background: '#faf7f4',   // page background
+    background: '#f7f8f8',   // page background
   },
 
   // ============================
@@ -103,7 +110,7 @@ const CONFIG = {
       name:  'Pedicure',
       desc:  'Relaxing foot care and nail grooming',
       price: '800 - 2,000',
-      image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1778347116/pedicure_z8g54h.jpg',
+      image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1777664969/pedicure_tmimzg.jpg',
       subServices: [
         { name: 'Basic Pedicure',    price: 800  },
         { name: 'Spa Pedicure',      price: 1200 },
@@ -125,7 +132,7 @@ const CONFIG = {
       name:  'Hair Dressing',
       desc:  'Styling, braiding, and coloring to keep you looking your best',
       price: '1,000 - 5,000',
-      image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1778333156/hair_dressing_w6gjxv.avif',
+      image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1777664969/hair_dressing_xb68xg.jpg',
       subServices: [
         { name: 'Hair Styling',      price: 1000 },
         { name: 'Braiding',          price: 2500 },
@@ -135,25 +142,24 @@ const CONFIG = {
     },
     {
       name:  'Barber Shop',
-      desc:  'Fresh cuts, Cornrows installation, Locs installation and braids',
-      price: '200 - 4,500',
-      image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1778410820/barber_shop_xs7woy.jpg',
+      desc:  'Fresh cuts, Cornrows, Locs installation and braids',
+      price: '200 - 3,000',
+      image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1777664969/cornrows_hwnvtr.jpg',
       subServices: [
         { name: 'Fresh Cut',         price: 200  },
         { name: 'Cornrows',          price: 800  },
         { name: 'Locs Installation', price: 3000 },
-        { name: 'Braids',            price: 4500 },
       ],
     },
     {
       name:  'Full-body Massage',
       desc:  'Relaxing full-body massage to relieve stress and tension',
       price: '1,500 - 5,000',
-      image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1778387369/massage_ybshjc.jpg',
+      image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1778066202/massage_yut61e.jpg',
       subServices: [
         { name: 'Back Massage',      price: 1500 },
         { name: 'Full Body Massage', price: 3000 },
-        { name: 'Hot Stone Massage',   price: 5000 },
+        { name: 'Couples Massage',   price: 5000 },
       ],
     },
   ],
