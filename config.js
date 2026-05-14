@@ -98,13 +98,12 @@ const CONFIG = {
     {
       name:  'Manicure',
       desc:  'Classic, Gel & acrylic nail treatments',
-      price: '500 - 2,000',
+      price: '500 - 1,500',
       image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1778331798/Acrylic_nails_y45fxu.webp',
       subServices: [
         { name: 'Classic Manicure',  price: 500  },
         { name: 'Gel Manicure',      price: 900  },
         { name: 'Acrylic Nails',     price: 1500 },
-        { name: 'Nail-Art manicure', price: 2000 },
       ],
     },
     {
@@ -113,10 +112,9 @@ const CONFIG = {
       price: '800 - 2,000',
       image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1777664969/pedicure_tmimzg.jpg',
       subServices: [
-        { name: 'Spa Pedicure',    price: 800  },
-        { name: 'Classic Pedicure',      price: 1200 },
+        { name: 'Basic Pedicure',    price: 800  },
+        { name: 'Spa Pedicure',      price: 1200 },
         { name: 'Gel Pedicure',      price: 2000 },
-        { name: 'Acrylic pedicure', price: 2500},
       ],
     },
     {
@@ -145,25 +143,23 @@ const CONFIG = {
     {
       name:  'Barber Shop',
       desc:  'Fresh cuts, Cornrows, Locs installation and braids',
-      price: '200 - 4,500',
-      image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1778410820/barber_shop_xs7woy.jpg',
+      price: '200 - 3,000',
+      image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1777664969/cornrows_hwnvtr.jpg',
       subServices: [
         { name: 'Fresh Cut',         price: 200  },
         { name: 'Cornrows',          price: 800  },
         { name: 'Locs Installation', price: 3000 },
-        { name: 'Braids installation', price: 4500},
       ],
     },
     {
       name:  'Full-body Massage',
       desc:  'Relaxing full-body massage to relieve stress and tension',
       price: '1,500 - 5,000',
-      image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1778387369/massage_ybshjc.jpg',
+      image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1778066202/massage_yut61e.jpg',
       subServices: [
         { name: 'Back Massage',      price: 1500 },
         { name: 'Full Body Massage', price: 3000 },
-        { name: 'Hot stone Massage',   price: 4500 },
-        { name: 'Reflexology Massage', price: 5,000},
+        { name: 'Couples Massage',   price: 5000 },
       ],
     },
   ],
