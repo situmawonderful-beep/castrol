@@ -26,16 +26,6 @@ const CONFIG = {
 },
 
   // ============================
-  // HOME SERVICE
-  // ============================
-  homeService: {
-    enabled:     true,      // set to false to disable home service option
-    extraCharge: 500,       // KSh extra for home service
-    maxDistance: 5,         // km from shop
-    shopLocation: 'Bamboo, Lurambi, Kakamega',
-  },
-
-  // ============================
   // OPENING HOURS
   // ============================
   hours: {
@@ -49,6 +39,17 @@ const CONFIG = {
   admin: {
     email: 'situmawonderful@gmail.com',
     name:  'Wanda',
+  },
+
+  // ============================
+  // MANAGER ACCOUNT
+  // Managers can view bookings and
+  // mark them complete/pending,
+  // but cannot delete data or export.
+  // ============================
+  manager: {
+    email: 'manager@lavenderglow.com',  // ← change to your manager's email
+    name:  'Manager',
   },
 
   // ============================
@@ -111,15 +112,12 @@ const CONFIG = {
     {
       name:  'Pedicure',
       desc:  'Relaxing foot care and nail grooming',
-      price: '800 - 2,500',
-      image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1777664969/pedicure_tmimzg.jpg',
+      price: '800 - 2,000',
+      image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1778347116/pedicure_z8g54h.jpg',
       subServices: [
         { name: 'Basic Pedicure',    price: 800  },
-        { name: 'Acrylic Pedicure',  price: 1000 },
         { name: 'Spa Pedicure',      price: 1200 },
         { name: 'Gel Pedicure',      price: 2000 },
-        { name: 'Hot Stone Pedicure', price: 2500 },
-
       ],
     },
     {
@@ -128,11 +126,9 @@ const CONFIG = {
       price: '1,500 - 4,000',
       image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1777664970/wig_installation_gkokcs.jpg',
       subServices: [
-        { name: 'Quick Weave Install',           price: 1000 },
-        { name: 'Glue installation(Bonded)',       price: 1500 },
-        { name: 'Glue-less installation',       price: 2000 },
-        { name: 'Front Lace Install',         price: 3000 },
-        { name: 'Full Lace Install',        price: 4000 },
+        { name: 'Wig Fitting',       price: 1500 },
+        { name: 'Wig Styling',       price: 2000 },
+        { name: 'Full Lace Install', price: 4000 },
       ],
     },
     {
@@ -141,24 +137,25 @@ const CONFIG = {
       price: '1,000 - 5,000',
       image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1778333156/hair_dressing_w6gjxv.avif',
       subServices: [
-        { name: 'Natural Hair Styling',      price: 1000 },
-        { name: 'Weaving & Extensions', price: 1500 },
-        { name: 'Braiding',          price: 2500 },
-        { name: 'Locs & Dreadlocks',     price: 3500 },
-        { name: 'Full Treatment',    price: 5000 },
+        { name: 'Luxury Hair Styling',      price: 1000 },
+        { name: 'Braiding Services',          price: 2500 },
+        { name: 'Weaves and Extensions',     price: 3500 },
+        { name: 'Full Hair Treatment',    price: 5000 },
       ],
     },
     {
       name:  'Barber Shop',
-      desc:  'Fresh cuts, Cornrows installation, Locs installation and braids installation',
-      price: '200 - 4,500',
-      image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1778332589/barber_shop_dwe0rg.avif',
+      desc:  'Fresh cuts, Cornrows, Locs installation and braids',
+      price: '200 - 3,000',
+      image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1778410820/barber_shop_xs7woy.jpg',
       subServices: [
-        { name: 'Haircuts',         price: 200  },
+        { name: 'Fresh Cut',         price: 200  },
         { name: 'Cornrows',          price: 800  },
-        { name: 'hair styling',          price: 1500 },
-        { name: 'Locs Installation', price: 3000 },
-        { name: 'Braids Installation', price: 4500},
+        { name: 'Braids',             price: 1500 },
+        
+        { name: 'Dreadlocks & Locs',         price: 3500  },
+        
+        
       ],
     },
     {
@@ -168,9 +165,10 @@ const CONFIG = {
       image: 'https://res.cloudinary.com/dbk47jrff/image/upload/v1778387369/massage_ybshjc.jpg',
       subServices: [
         { name: 'Back Massage',      price: 1500 },
-        { name: 'Full Body Massage', price: 3000 },
-        { name: 'Hot Stone Massage',   price: 4500 },
-        { name: 'Therapeutic Massages', price: 5000 },
+        { name: 'Swedish Massage',   price: 2500 },
+        { name: 'Aromatherapy Massage', price: 4000 },
+        { name: 'Deep Tissue Massage', price: 4500 }, 
+        { name: 'Hot Stone Massage',   price: 5000 },
       ],
     },
   ],
