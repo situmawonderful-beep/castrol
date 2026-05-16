@@ -36,7 +36,7 @@ const state = {
   bookings: [],
   members: [],
   selSvc: null,
-  isAdmin:   false,
+  isAdmin: false,
   isManager: false,
 };
 
@@ -59,6 +59,11 @@ function isAdmin() {
 
 function isManager() {
   return state.isManager;
+}
+
+// Can this user manage bookings (mark complete)?
+function canManageBookings() {
+  return state.isAdmin || state.isManager;
 }
 
 // ============================
@@ -196,8 +201,8 @@ async function loadBookings() {
   const q = query(collection(db, 'bookings'), orderBy('created', 'desc'));
   onSnapshot(q, (snapshot) => {
     state.bookings = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
-    if (isAdmin()) renderAdmin();
-    if (state.currentUser && !isAdmin()) renderMyBookings();
+    if (isAdmin() || isManager()) renderAdmin();
+    if (state.currentUser && !isAdmin() && !isManager()) renderMyBookings();
   });
 }
 
@@ -205,7 +210,7 @@ async function loadMembers() {
   const q = query(collection(db, 'members'), orderBy('joined', 'asc'));
   onSnapshot(q, (snapshot) => {
     state.members = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
-    if (isAdmin()) renderMembersTable();
+    if (isAdmin() || isManager()) renderMembersTable();
   });
 }
 
@@ -219,7 +224,7 @@ onAuthStateChanged(auth, async (user) => {
 
   if (user) {
     // Load profile from Firestore
-    if (!isAdmin()) {
+    if (!isAdmin() && !isManager()) {
       const profileDoc = await getDoc(doc(db, 'members', user.uid));
       state.currentProfile = profileDoc.exists() ? profileDoc.data() : { name: user.displayName, email: user.email };
     }
@@ -524,20 +529,20 @@ function renderAdmin() {
   const guestBks  = state.bookings.filter(b => !b.member);
   const memberRev = memberBks.reduce((a, b) => a + getPrice(b), 0);
 
-  // Hide dangerous buttons from manager
-  const exportBtn          = $('exportBtn');
-  const clearBtn           = $('clearDataBtn');
-  const markAllBtn         = $('markAllCompleteBtn');
-  if (exportBtn)    exportBtn.style.display    = isAdmin() ? 'inline-block' : 'none';
-  if (clearBtn)     clearBtn.style.display     = isAdmin() ? 'inline-block' : 'none';
-  if (markAllBtn)   markAllBtn.style.display   = isAdmin() ? 'inline-block' : 'none';
-
-  // Manager sees a notice
-  const managerNotice = $('managerNotice');
-  if (managerNotice) managerNotice.style.display = isManager() ? 'block' : 'none';
-
   const dateEl = $('adminDate');
   if (dateEl) dateEl.textContent = new Date().toLocaleDateString('en-KE', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+  // Role label
+  const roleLabel = $('adminRoleLabel');
+  if (roleLabel) {
+    const roleName = isAdmin() ? 'Administrator' : 'Manager';
+    roleLabel.innerHTML = `${roleName} Access · <span id="adminDate">${dateEl ? dateEl.textContent : ''}</span>`;
+  }
+
+  // Hide admin-only controls from managers
+  document.querySelectorAll('.admin-only').forEach(el => {
+    el.style.display = isAdmin() ? '' : 'none';
+  });
 
   $('stTotal').textContent     = state.bookings.length;
   $('stMembers').textContent   = state.members.length;
@@ -557,6 +562,10 @@ function renderAdmin() {
   $('stNext').textContent = upcoming
     ? `${upcoming.name} · ${upcoming.service} · ${upcoming.date} ${upcoming.time}`
     : 'No upcoming bookings';
+
+  // Mark all complete button — admin only
+  const markAllBtn = $('markAllCompleteBtn');
+  if (markAllBtn) markAllBtn.style.display = isAdmin() ? '' : 'none';
 
   const filterSvc = $('adminFilterSvc');
   if (filterSvc) {
@@ -606,14 +615,11 @@ function renderBookingsTable() {
           <td><span class="badge ${b.member ? 'badge-member' : 'badge-guest'}">${b.member ? 'Member' : 'Guest'}</span></td>
           <td style="color:var(--muted);font-size:0.82rem;max-width:120px">${b.notes || '<em>—</em>'}</td>
           <td>
-            ${isAdmin() ? `
-            <button
-              class="btn-complete ${b.completed ? 'btn-completed' : ''}"
+            <button 
+              class="btn-complete ${b.completed ? 'btn-completed' : ''}" 
               onclick="toggleComplete('${b.id}', ${!!b.completed})">
               ${b.completed ? 'Done' : 'Pending'}
-            </button>` : `
-            <span class="badge ${b.completed ? 'badge-member' : 'badge-guest'}">${b.completed ? 'Done' : 'Pending'}</span>
-            `}
+            </button>
           </td>
         </tr>`).join('')
     : '<tr><td colspan="10" class="empty-row">No bookings yet</td></tr>';
@@ -770,6 +776,8 @@ window.forgotPassword  = forgotPassword;
 window.markAllComplete = markAllComplete;
 window.switchAuthTab   = switchAuthTab;
 window.openAuthModal   = openAuthModal;
+window.isManager       = isManager;
+window.canManageBookings = canManageBookings;
 
 // ============================
 // INIT
@@ -781,8 +789,8 @@ window.openAuthModal   = openAuthModal;
   if (bkDate) bkDate.min = new Date().toISOString().split('T')[0];
 
   $('navAuthBtn').addEventListener('click', () => {
-    if (state.currentUser && !isAdmin()) openAccountModal();
-    else if (isAdmin()) $('adminSection').scrollIntoView({ behavior: 'smooth' });
+    if (state.currentUser && !isAdmin() && !isManager()) openAccountModal();
+    else if (isAdmin() || isManager()) $('adminSection').scrollIntoView({ behavior: 'smooth' });
     else openAuthModal('login');
   });
 
